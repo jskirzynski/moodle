@@ -627,6 +627,10 @@ function chat_login_user($chatid, $version, $groupid, $course) {
 function chat_delete_old_users() {
 // Delete the old and in the way
     global $CFG, $DB;
+    
+    if (!isset($CFG->chat_old_ping)) {
+        set_config('chat_old_ping', 35); // default value
+    }
 
     $timeold = time() - $CFG->chat_old_ping;
     $timeoldext = time() - ($CFG->chat_old_ping*10); // JSless gui_basic needs much longer timeouts
